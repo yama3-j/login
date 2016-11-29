@@ -18,7 +18,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     $errors['password'] = 'パスワードが未入力です';
   }
+if (
+   $dbh = connectDatabase();
 
+        $sql = "select * from users where name = :name";
+        $stmt = $dbh->prepare($sql);
+
+        $stmt->bindParam(":name", $name);
+        $stmt->execute();
+
+        $same = $stmt->fetch();
+
+        var_dump($same);)
+  {
+    $errors['same'] = '既に登録されているユーザーネームなので変更してください';
+  }
 if (empty($errors))
 {
    $dbh = connectDatabase();
